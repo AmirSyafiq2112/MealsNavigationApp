@@ -3,6 +3,7 @@ import 'package:meals_navigation_apps/screens/categories_screen.dart';
 import 'package:meals_navigation_apps/screens/category_meals_screen.dart';
 import 'package:meals_navigation_apps/screens/error_screen.dart';
 import 'package:meals_navigation_apps/screens/meal_detail_screen.dart';
+import 'package:meals_navigation_apps/screens/tabs_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.bold,
             )),
       ),
-      home: CategoriesScreen(),
+      home: TabsScreen(),
       routes: {
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
