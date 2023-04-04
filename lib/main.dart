@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals_navigation_apps/screens/categories_screen.dart';
 import 'package:meals_navigation_apps/screens/category_meals_screen.dart';
 import 'package:meals_navigation_apps/screens/error_screen.dart';
+import 'package:meals_navigation_apps/screens/filter_screen.dart';
 import 'package:meals_navigation_apps/screens/meal_detail_screen.dart';
 import 'package:meals_navigation_apps/screens/tabs_screen.dart';
 
@@ -29,19 +30,21 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.bold,
             )),
       ),
-      home: TabsScreen(),
+      // home: TabsScreen(),
       routes: {
-        CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        '/': (context) => TabsScreen(),
+        CategoryMealsScreen.routeName: (context) => CategoryMealsScreen(),
+        MealDetailScreen.routeName: (context) => MealDetailScreen(),
+        FiltersScreen.routeName: (context) => FiltersScreen(),
       },
       onGenerateRoute: (settings) {
         // print(settings.arguments);
         // print(settings.name);
-        return MaterialPageRoute(builder: (ctx) => CategoriesScreen());
+        return MaterialPageRoute(builder: (context) => CategoriesScreen());
       },
       onUnknownRoute: (settings) {
         //last resort; fallback page
-        return MaterialPageRoute(builder: (ctx) => ErrorScreen());
+        return MaterialPageRoute(builder: (context) => ErrorScreen());
       },
     );
   }
