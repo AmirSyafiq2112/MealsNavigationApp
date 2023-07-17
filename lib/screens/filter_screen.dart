@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import '../widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {
-  const FiltersScreen({Key key}) : super(key: key);
+  final Function saveFilters;
+  final Map<String, bool> currentFilters;
+
+  FiltersScreen(this.saveFilters, this.currentFilters);
 
   static const routeName = '/filters';
 
@@ -12,15 +15,51 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> {
   var _glutenFree = false;
+  var _lactoseFree = false;
   var _vegetarian = false;
   var _vegan = false;
-  var _lactose = false;
+
+  @override
+  void initState() {
+    _glutenFree = widget.currentFilters['gluten'];
+    _lactoseFree = widget.currentFilters['lactose'];
+    _vegetarian = widget.currentFilters['vegetarian'];
+    _vegan = widget.currentFilters['vegan'];
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Filter'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              final selectedFilters = {
+                'gluten': _glutenFree,
+                'lactose': _lactoseFree,
+                'vegan': _vegan,
+                'vegetarian': _vegetarian,
+              };
+
+              widget.saveFilters(selectedFilters);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                new SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: new Text('Save'),
+                  ),
+                  duration: Duration(milliseconds: 700),
+                ),
+              );
+            },
+            icon: Icon(Icons.save),
+          )
+        ],
       ),
       drawer: MainDrawer(),
       body: Column(children: [
@@ -67,10 +106,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
               _buildSwitchListTile(
                 'Lactose-free',
                 'Only include lactose-free meals',
-                _lactose,
+                _lactoseFree,
                 (value) {
                   setState(() {
-                    _lactose = value;
+                    _lactoseFree = value;
                   });
                 },
               ),
